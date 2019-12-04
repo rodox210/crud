@@ -16,7 +16,6 @@ import javax.validation.Valid;
 @RestController
 public class ApiController{
 
-
     private UserContractFacade userContractFacade;
 
 

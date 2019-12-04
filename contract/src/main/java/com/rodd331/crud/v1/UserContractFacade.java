@@ -12,7 +12,6 @@ import static com.rodd331.crud.v1.mapper.UserListMapper.mapUserListToResponse;
 import static com.rodd331.crud.v1.mapper.UserMapper.mapToContract;
 import static com.rodd331.crud.v1.mapper.UserMapper.mapToImpl;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Component
 public class UserContractFacade {

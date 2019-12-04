@@ -1,5 +1,7 @@
 buildscript {
+
     repositories {
+        mavenCentral()
         maven {
             url "https://plugins.gradle.org/m2/"
         }
@@ -13,17 +15,14 @@ buildscript {
 
 
 plugins {
-    id 'java'
-    id "application"
-    id 'org.springframework.boot' version '2.1.4.RELEASE'
-    id "org.sonarqube" version "2.7"
 
+    id 'org.springframework.boot' version '2.2.1.RELEASE'
+    id "org.sonarqube" version "2.7"
+    id 'java'
 }
-mainClassName = 'com.example.architecture.CrudApplication'
 
 dependencies {
-    compile project(':contract')
-    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.1.8.RELEASE'
+    implementation project(':contract')
 }
 
 allprojects {
@@ -34,7 +33,6 @@ allprojects {
 
     group = 'com.rodd331'
     version = '0.0.1-SNAPSHOT'
-
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
 
