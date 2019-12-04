@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.rodd331.crud.mapper.UserMapper.mapToEntity;
-import static com.rodd331.crud.mapper.UserMapper.mapToModel;
 
 @Service
 @AllArgsConstructor
@@ -25,25 +24,42 @@ public class UserService {
     private UserRepository userRepository;
 
     UserEntity createUser(UserModel user) {
-        if(userRepository.findByUserName(user.getUserName()).isEmpty() &&
-                userRepository.findByEmail(user.getEmail()).isEmpty()){
+        if (userRepository.findByUserName(user.getUserName()).isEmpty() &&
+                userRepository.findByEmail(user.getEmail()).isEmpty()) {
             String crypt = Cryptograf.criptografar(user.getUserPassword());
             user.setUserPassword(crypt);
             return userRepository.save(mapToEntity(user));
-        }else{
-            throw getApiExceptionalReadyRegistered();
-    }}
+        } else {
+            throw new ApiException(HttpStatus.BAD_REQUEST, ExceptionModel
+                    .builder()
+                    .name("FieldAlreadyRegisteredException")
+                    .message( "User already registered")
+                    .timestamp(LocalDateTime.now())
+                    .build());
+        }
+    }
 
     List<UserModel> allUsers() {
-        if(userRepository.findAll().isEmpty()){
-            throw getApiExceptionIdNotFound();
-        }else{
-        return userRepository.findAll().stream().map(UserMapper::mapToModel).collect(Collectors.toList());
-    }}
+        if (userRepository.findAll().isEmpty()) {
+            throw new ApiException(HttpStatus.NOT_FOUND, ExceptionModel
+                    .builder()
+                    .name("EmptyListException")
+                    .message( "There are no registered users")
+                    .timestamp(LocalDateTime.now())
+                    .build());
+        } else {
+            return userRepository.findAll().stream().map(UserMapper::mapToModel).collect(Collectors.toList());
+        }
+    }
 
     UserEntity findById(String id) {
         return userRepository.findById(id)
-                .orElseThrow(this::getApiExceptionIdNotFound);
+                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, ExceptionModel
+                .builder()
+                .name("IdNotFoundException")
+                .message( "User not found")
+                .timestamp(LocalDateTime.now())
+                .build()));
     }
 
     UserEntity userUpdate(UserModel user, String id) {
@@ -52,36 +68,30 @@ public class UserService {
 
             return userRepository.save(UserMapper.mapToEntity(user));
         } else {
-            throw getApiExceptionIdNotFound();
+            throw new ApiException(HttpStatus.NOT_FOUND, ExceptionModel
+                    .builder()
+                    .name("IdNotFoundException")
+                    .message( "User not found")
+                    .timestamp(LocalDateTime.now())
+                    .build());
         }
     }
 
-      void deleteUserById(String id) {
+    void deleteUserById(String id) {
         if (userRepository.findById(id).isPresent()) {
             userRepository.deleteById(id);
         } else {
-            throw getApiExceptionIdNotFound();
+            throw new ApiException(HttpStatus.NOT_FOUND, ExceptionModel
+                    .builder()
+                    .name("IdNotFoundException")
+                    .message( "User not found")
+                    .timestamp(LocalDateTime.now())
+                    .build());
         }
     }
 
 
-    private ApiException getApiExceptionIdNotFound() {
-        return new ApiException(HttpStatus.NOT_FOUND, ExceptionModel.builder()
-                .message("TargetNotFoundException")
-                .name("Id incorreto")
-                .status(HttpStatus.NOT_FOUND)
-                .timestamp(LocalDateTime.now())
-                .build());
-    }
 
-    private ApiException getApiExceptionalReadyRegistered() {
-        return new ApiException(HttpStatus.BAD_REQUEST, ExceptionModel.builder()
-                .message("Data Already Registered")
-                .name("Dado ja Cadastrado")
-                .status(HttpStatus.BAD_REQUEST)
-                .timestamp(LocalDateTime.now())
-                .build());
-    }
 
 
 }

@@ -3,10 +3,7 @@ package com.rodd331.crud.v1;
 import com.rodd331.crud.v1.model.request.UserRequest;
 import com.rodd331.crud.v1.model.response.UserListResponse;
 import com.rodd331.crud.v1.model.response.UserResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,31 +11,30 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @AllArgsConstructor
-@Api(value = "Contract Controller")
+@Api(value = "User")
 @RequestMapping(path = "/v1/crud")
 @RestController
-public class ApiController {
+public class ApiController{
+
 
     private UserContractFacade userContractFacade;
 
 
-    @ApiOperation(value = "Cria um usuario no DB")
-    @ApiResponses({
+    @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Cria um usuario")
+    @PostMapping("/user")
+    @ApiResponses(value = {
             @ApiResponse(code = 201, message = "User created"),
-            @ApiResponse(code = 401, message = "Unauthorized Method"),
-            @ApiResponse(code = 403, message = "Method not allowed"),
+            @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
-    @PostMapping("/user")
-    @ResponseStatus(HttpStatus.CREATED)
     public UserResponse createUser(@Valid @RequestBody UserRequest user) {
         return userContractFacade.createUser(user);
     }
 
-
-    @ApiOperation(value = "Retorna uma lista com todos usuarios.")
+    @ApiOperation(value = "Retorna todos usuarios.")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Successful Operation", response = UserListResponse.class),
+            @ApiResponse(code = 200, message = "Successful Operation"),
             @ApiResponse(code = 404, message = "Not found"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
@@ -48,7 +44,7 @@ public class ApiController {
     }
 
 
-    @ApiOperation(value = "Consulta usuario pelo ID.")
+    @ApiOperation(value = "Consulta usuario por id.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "User found"),
             @ApiResponse(code = 404, message = "User not found"),
@@ -60,7 +56,7 @@ public class ApiController {
     }
 
 
-    @ApiOperation(value = "Atualiza um usuario existente.")
+    @ApiOperation(value = "Atualiza usuario existente.")
     @PutMapping("/user/{id}")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Updated User"),
@@ -72,7 +68,7 @@ public class ApiController {
         return userContractFacade.userUpdate(user, id);
     }
 
-    @ApiOperation(value = "Deleta um usuario pelo ID.")
+    @ApiOperation(value = "Deleta um usuario.")
     @DeleteMapping("/user/{id}")
     @ApiResponses({
             @ApiResponse(code = 204, message = "Deleted User"),

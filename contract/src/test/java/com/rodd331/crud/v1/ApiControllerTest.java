@@ -1,16 +1,19 @@
 package com.rodd331.crud.v1;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rodd331.crud.CrudApplication;
 import com.rodd331.crud.mapper.UserMapper;
 import com.rodd331.crud.model.UserModel;
 import com.rodd331.crud.repository.UserEntity;
 import com.rodd331.crud.repository.UserRepository;
+import com.rodd331.crud.v1.model.response.UserResponse;
 import com.rodd331.crud.v1.stubs.UserEntityStub;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -25,16 +28,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = ApiController.class)
 @AutoConfigureMockMvc
-@ContextConfiguration(classes= CrudApplication.class)
 public class ApiControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+
     @MockBean
     private UserRepository userRepository;
+
 
     @Test
     public void findById_ReturnCode_OK() throws Exception {
@@ -51,7 +57,7 @@ public class ApiControllerTest {
     }
 
 
-   /* @Test
+    @Test
     public void createUser_ReturnCode_Created() throws Exception {
 
         given(userRepository.save(UserEntity.builder().id("123456").userName("jonas").email("jacare@live.com").userPassword("123456")
@@ -72,19 +78,19 @@ public class ApiControllerTest {
                                 .email("jacare@live.com")
                                 .userPassword("123456")
                                 .build()))).andExpect(status().isCreated());
-    }*/
+    }
 
     @Test
     public void deleteFindById_ReturnCode_Ok() throws Exception {
-        UserEntity userEntityExample = new UserEntity("someid","teste","test@mail.com","123456");
+        UserEntity userEntityExample = new UserEntity("someid", "teste", "test@mail.com", "123456");
         given(userRepository.findById("someid")).willReturn(java.util.Optional.of(userEntityExample));
         this.mockMvc.perform(delete("/v1/crud/user/someid")).andExpect(status().isNoContent());
     }
 
     @Test
     public void updateUser_ReturnCode_OK() throws Exception {
-        UserModel userModelExample = new UserModel("someid","teste","test@hotmail.com","123456");
-        UserEntity userEntityExample = new UserEntity("someid","teste","test@hotmail.com","123456");
+        UserModel userModelExample = new UserModel("someid", "teste", "test@hotmail.com", "123456");
+        UserEntity userEntityExample = new UserEntity("someid", "teste", "test@hotmail.com", "123456");
         given(userRepository.findById("someid")).willReturn(java.util.Optional.of(userEntityExample));
         given(userRepository.save(UserMapper.mapToEntity(userModelExample))).willReturn(userEntityExample);
         this.mockMvc.perform(put("/v1/crud/user/someid")

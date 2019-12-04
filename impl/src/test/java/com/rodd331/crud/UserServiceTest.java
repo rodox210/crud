@@ -33,8 +33,7 @@ public class UserServiceTest {
 
     @Test(expected = ApiException.class)
     public void getFindById_ReturnApiException() {
-        when(userRepository.findById("someid")).thenReturn(Optional.of(UserEntityStub.generationUserEntity2()));
-        userService.findById("someid2");
+        userService.findById("someid");
     }
 
     @Test(expected = ApiException.class)
@@ -55,3 +54,4 @@ public class UserServiceTest {
         userService.userUpdate(UserModelStub.generationUserModel(),"someid");
     }
 }
+

@@ -5,12 +5,14 @@ import com.rodd331.crud.v1.model.request.UserRequest;
 import com.rodd331.crud.v1.model.response.UserListResponse;
 import com.rodd331.crud.v1.model.response.UserResponse;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import static com.rodd331.crud.v1.mapper.UserListMapper.mapUserListToResponse;
 import static com.rodd331.crud.v1.mapper.UserMapper.mapToContract;
 import static com.rodd331.crud.v1.mapper.UserMapper.mapToImpl;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @Component
 public class UserContractFacade {
