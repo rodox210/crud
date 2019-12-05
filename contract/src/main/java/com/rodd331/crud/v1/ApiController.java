@@ -5,21 +5,23 @@ import com.rodd331.crud.v1.model.response.UserListResponse;
 import com.rodd331.crud.v1.model.response.UserResponse;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@AllArgsConstructor
-@Api(value = "User")
+
+@Api(value = "Api Controller")
 @RequestMapping(path = "/v1/crud")
 @RestController
+@AllArgsConstructor
 public class ApiController{
 
     private UserContractFacade userContractFacade;
 
 
-    @ResponseStatus(HttpStatus.CREATED)
+
     @ApiOperation(value = "Cria um usuario")
     @PostMapping("/user")
     @ApiResponses(value = {
@@ -27,7 +29,8 @@ public class ApiController{
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
-    public UserResponse createUser(@Valid @RequestBody UserRequest user) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserResponse createUser(@NonNull @Valid @RequestBody UserRequest user) {
         return userContractFacade.createUser(user);
     }
 
@@ -62,8 +65,7 @@ public class ApiController{
             @ApiResponse(code = 404, message = "User not found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
-    @ResponseStatus(HttpStatus.OK)
-    public UserResponse updateUser(@Valid @RequestBody UserRequest user, @PathVariable String id) {
+    public UserResponse updateUser(@NonNull @Valid @RequestBody UserRequest user, @PathVariable String id) {
         return userContractFacade.userUpdate(user, id);
     }
 

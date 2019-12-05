@@ -1,6 +1,6 @@
 package com.rodd331.crud.v1.mapper;
 
-import com.rodd331.crud.model.UserModel;
+import com.rodd331.crud.impl.model.UserModel;
 import com.rodd331.crud.v1.model.response.UserListResponse;
 import com.rodd331.crud.v1.model.response.UserResponse;
 import lombok.AccessLevel;

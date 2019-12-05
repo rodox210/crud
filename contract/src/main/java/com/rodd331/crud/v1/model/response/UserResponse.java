@@ -2,12 +2,11 @@ package com.rodd331.crud.v1.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@lombok.Data
 @Builder
 public class UserResponse {
 

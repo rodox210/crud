@@ -1,6 +1,6 @@
 package com.rodd331.crud.v1;
 
-import com.rodd331.crud.UserFacade;
+import com.rodd331.crud.impl.UserFacade;
 import com.rodd331.crud.v1.model.request.UserRequest;
 import com.rodd331.crud.v1.model.response.UserListResponse;
 import com.rodd331.crud.v1.model.response.UserResponse;
@@ -11,18 +11,19 @@ import static com.rodd331.crud.v1.mapper.UserListMapper.mapUserListToResponse;
 import static com.rodd331.crud.v1.mapper.UserMapper.mapToContract;
 import static com.rodd331.crud.v1.mapper.UserMapper.mapToImpl;
 
-@AllArgsConstructor
+
 @Component
+@AllArgsConstructor
 public class UserContractFacade {
 
     private UserFacade userFacade;
 
-    UserResponse createUser(UserRequest user){
+
+    UserResponse createUser(UserRequest user) {
         return mapToContract(userFacade.createUser(mapToImpl(user)));
     }
 
     UserListResponse allUsers() {
-
         return mapUserListToResponse(userFacade.allUsers());
     }
 
