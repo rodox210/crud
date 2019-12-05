@@ -18,7 +18,8 @@ public class UserFacade {
     private ValidationService validationService;
 
     public UserModel createUser(UserModel user) {
-        validationService.checkForResgistredExistenceInDataBaseEmailAndUserName(user);
+        validationService.checkForResgistredExistenceInDataBaseName(user);
+        validationService.checkForResgistredExistenceInDataBaseEmail(user);
         return mapToModel(persistenceService.createUser(user));
     }
 

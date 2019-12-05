@@ -1,4 +1,4 @@
-package com.rodd331.crud;
+package com.rodd331.crud.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rodd331.crud.impl.UserFacade;

@@ -17,9 +17,20 @@ public class ValidationService {
     private UserRepository userRepository;
 
 
-    public void checkForResgistredExistenceInDataBaseEmailAndUserName(UserModel user) {
-        if (userRepository.findByUserName(user.getUserName()).isPresent() &&
-                userRepository.findByEmail(user.getEmail()).isPresent()) {
+    public void checkForResgistredExistenceInDataBaseName(UserModel user) {
+        if (userRepository.findByUserName(user.getUserName()).isPresent()) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, ExceptionModel
+                    .builder()
+                    .name("FieldAlreadyRegisteredException")
+                    .message("User already registered")
+                    .timestamp(LocalDateTime.now())
+                    .build());
+        }
+    }
+
+
+    public void checkForResgistredExistenceInDataBaseEmail(UserModel user) {
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new ApiException(HttpStatus.BAD_REQUEST, ExceptionModel
                     .builder()
                     .name("FieldAlreadyRegisteredException")
