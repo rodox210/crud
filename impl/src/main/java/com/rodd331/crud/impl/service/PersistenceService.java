@@ -1,7 +1,8 @@
 package com.rodd331.crud.impl.service;
 
-import com.rodd331.crud.impl.handler.ApiException;
-import com.rodd331.crud.impl.handler.ExceptionModel;
+import com.rodd331.crud.impl.handler.BadRequestException;
+import com.rodd331.crud.impl.handler.ExceptionResponse;
+import com.rodd331.crud.impl.handler.NotFoundException;
 import com.rodd331.crud.impl.mapper.UserMapper;
 import com.rodd331.crud.impl.model.UserModel;
 import com.rodd331.crud.impl.repository.UserEntity;
@@ -33,12 +34,7 @@ public class PersistenceService {
 
     public UserEntity userFindById(String id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, ExceptionModel
-                        .builder()
-                        .name("IdNotFoundException")
-                        .message("User not found")
-                        .timestamp(LocalDateTime.now())
-                        .build()));
+                .orElseThrow(() -> new NotFoundException("User not found"));
     }
 
     public void deleteUserById(String id) {
