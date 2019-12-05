@@ -1,11 +1,11 @@
-package com.rodd331.crud.v1.stubs;
+package com.rodd331.crud.stubs;
 
-import com.rodd331.crud.impl.model.UserModel;
+import com.rodd331.crud.impl.repository.UserEntity;
 
-public class UserModelStub {
+public class UserEntityStub {
 
-    public static UserModel generationUserModel() {
-        return UserModel.builder()
+    public static UserEntity generationUserEntity() {
+        return UserEntity.builder()
                 .id("someid")
                 .userName("teste")
                 .email("teste@live.com")
@@ -13,12 +13,13 @@ public class UserModelStub {
                 .build();
     }
 
-    public static UserModel generationUserModel2() {
-        return UserModel.builder()
-                .id("someid")
+    public static UserEntity generationUserEntity2() {
+        return UserEntity.builder()
+                .id("genericId2")
                 .userName("Chapolin")
                 .email("chapolin@live.com")
                 .userPassword("123456")
                 .build();
     }
+
 }

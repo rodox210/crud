@@ -1,4 +1,4 @@
-package com.rodd331.crud.stubs;
+/*package com.rodd331.crud.v1.stubs;
 
 import com.rodd331.crud.impl.repository.UserEntity;
 
@@ -22,4 +22,4 @@ public class UserEntityStub {
                 .build();
     }
 
-}
+}*/
