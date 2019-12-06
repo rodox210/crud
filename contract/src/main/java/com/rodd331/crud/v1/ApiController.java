@@ -1,11 +1,11 @@
 package com.rodd331.crud.v1;
 
+import com.rodd331.crud.impl.handler.ExceptionResponse;
 import com.rodd331.crud.v1.model.request.UserRequest;
 import com.rodd331.crud.v1.model.response.UserListResponse;
 import com.rodd331.crud.v1.model.response.UserResponse;
 import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
-import lombok.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,18 +26,18 @@ public class ApiController{
     @PostMapping("/user")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "User created"),
-            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 400, message = "Bad Request",response = ExceptionResponse.class),
             @ApiResponse(code = 500, message = "Internal server error")
     })
     @ResponseStatus(HttpStatus.CREATED)
-    public UserResponse createUser(@NonNull @Valid @RequestBody UserRequest user) {
+    public UserResponse createUser(@Valid @RequestBody UserRequest user) {
         return userContractFacade.createUser(user);
     }
 
     @ApiOperation(value = "Retorna todos usuarios.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successful Operation"),
-            @ApiResponse(code = 404, message = "Not found"),
+            @ApiResponse(code = 404, message = "Not found", response = ExceptionResponse.class),
             @ApiResponse(code = 500, message = "Internal server error")
     })
     @GetMapping("/user")
@@ -49,7 +49,7 @@ public class ApiController{
     @ApiOperation(value = "Consulta usuario por id.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "User found"),
-            @ApiResponse(code = 404, message = "User not found"),
+            @ApiResponse(code = 404, message = "User not found",response = ExceptionResponse.class),
             @ApiResponse(code = 500, message = "Internal server error")
     })
     @GetMapping("/user/{id}")
@@ -62,10 +62,10 @@ public class ApiController{
     @PutMapping("/user/{id}")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Updated User"),
-            @ApiResponse(code = 404, message = "User not found"),
+            @ApiResponse(code = 404, message = "User not found", response = ExceptionResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
-    public UserResponse updateUser(@NonNull @Valid @RequestBody UserRequest user, @PathVariable String id) {
+    public UserResponse updateUser(@Valid @RequestBody UserRequest user, @PathVariable String id) {
         return userContractFacade.userUpdate(user, id);
     }
 

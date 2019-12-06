@@ -19,20 +19,21 @@ plugins {
     id 'org.springframework.boot' version '2.1.4.RELEASE'
     id "org.sonarqube" version "2.7"
     id 'java'
-
+    id "application"
 }
 group = 'com.rodd331'
 version = '0.0.1-SNAPSHOT'
-
+mainClassName = 'com.rodd331.crud.CrudApplication'
 dependencies {
     implementation project(':contract')
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.1.8.RELEASE'
+
 }
 allprojects {
     apply plugin: 'java'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.sonarqube'
     apply plugin: 'jacoco'
-    apply plugin: 'idea'
 
     group = 'com.rodd331'
     version = '0.0.1-SNAPSHOT'

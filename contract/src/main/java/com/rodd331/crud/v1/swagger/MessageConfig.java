@@ -1,10 +1,12 @@
 package com.rodd331.crud.v1.swagger;
 
+import lombok.Generated;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+@Generated
 @Configuration
 public class MessageConfig {
     @Bean

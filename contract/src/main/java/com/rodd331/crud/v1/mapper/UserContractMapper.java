@@ -3,8 +3,12 @@ package com.rodd331.crud.v1.mapper;
 import com.rodd331.crud.impl.model.UserModel;
 import com.rodd331.crud.v1.model.request.UserRequest;
 import com.rodd331.crud.v1.model.response.UserResponse;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-public class UserMapper {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+
+public class UserContractMapper {
 
     public static UserResponse mapToContract(UserModel userModel) {
         return UserResponse.builder()

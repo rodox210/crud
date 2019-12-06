@@ -2,6 +2,10 @@ package com.rodd331.crud.impl.mapper;
 
 import com.rodd331.crud.impl.model.UserModel;
 import com.rodd331.crud.impl.repository.UserEntity;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 
 public class UserMapper {
 

@@ -1,17 +1,14 @@
 package com.rodd331.crud.impl.service;
 
-import com.rodd331.crud.impl.handler.BadRequestException;
-import com.rodd331.crud.impl.handler.ExceptionResponse;
+
 import com.rodd331.crud.impl.handler.NotFoundException;
 import com.rodd331.crud.impl.mapper.UserMapper;
 import com.rodd331.crud.impl.model.UserModel;
 import com.rodd331.crud.impl.repository.UserEntity;
 import com.rodd331.crud.impl.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +25,7 @@ public class PersistenceService {
         return userRepository.save(mapToEntity(user));
     }
 
-    public List<UserModel> listPersistedReturn() {
+    public List<UserModel> listAllUsersReturn() {
         return userRepository.findAll().stream().map(UserMapper::mapToModel).collect(Collectors.toList());
     }
 
@@ -37,8 +34,9 @@ public class PersistenceService {
                 .orElseThrow(() -> new NotFoundException("User not found"));
     }
 
-    public void deleteUserById(String id) {
+    public boolean deleteUserById(String id) {
         userRepository.deleteById(id);
+        return true;
     }
 
     public UserEntity userUpdate(UserModel user, String id) {

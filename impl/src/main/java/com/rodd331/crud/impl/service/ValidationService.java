@@ -1,7 +1,6 @@
 package com.rodd331.crud.impl.service;
 
 import com.rodd331.crud.impl.handler.BadRequestException;
-import com.rodd331.crud.impl.handler.ExceptionResponse;
 import com.rodd331.crud.impl.handler.NotFoundException;
 import com.rodd331.crud.impl.model.UserModel;
 import com.rodd331.crud.impl.repository.UserRepository;
@@ -25,7 +24,7 @@ public class ValidationService {
 
     public void checkForResgistredExistenceInDataBaseEmail(UserModel user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new BadRequestException("User already registered");
+            throw new BadRequestException("Email already registered");
         }
     }
 
@@ -37,7 +36,7 @@ public class ValidationService {
 
     public void validatorUserId(String id) {
         if (userRepository.findById(id).isEmpty()) {
-            throw new BadRequestException("User not found");
+            throw new NotFoundException("User not found");
         }
     }
 }

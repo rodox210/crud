@@ -1,15 +1,13 @@
 package com.rodd331.crud.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rodd331.crud.impl.UserFacade;
+import com.rodd331.crud.impl.facade.UserFacade;
 import com.rodd331.crud.impl.mapper.UserMapper;
 import com.rodd331.crud.impl.model.UserModel;
 import com.rodd331.crud.impl.repository.UserEntity;
 import com.rodd331.crud.impl.repository.UserRepository;
 import com.rodd331.crud.impl.service.PersistenceService;
 import com.rodd331.crud.impl.service.ValidationService;
-import com.rodd331.crud.v1.ApiController;
-import com.rodd331.crud.v1.UserContractFacade;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,28 +66,19 @@ public class ApiControllerTest {
         this.mockMvc.perform(get("/v1/crud/user")).andExpect(status().isOk());
     }
 
-  /*  @Test
+  /* @Test
     public void createUser_ReturnCode_Created() throws Exception {
+       UserModel userModelExample = new UserModel("someid", "teste", "test@hotmail.com", "123456");
+       UserEntity userEntityExample = new UserEntity("someid", "teste", "test@hotmail.com", "123456");
 
-        given(userRepository.save(UserEntity.builder().id("123456").userName("jonas").email("jacare@live.com").userPassword("123456")
-                .build())).willReturn(UserEntity
-                .builder()
-                .id("someid")
-                .userName("jonas")
-                .email("jacare@live.com")
-                .userPassword("123456")
-                .build());
-
-        this.mockMvc.perform(post("/v1/crud/user").contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper()
-                        .writeValueAsString(UserEntity
-                                .builder()
-                                .id("123456")
-                                .userName("jonas")
-                                .email("jacare@live.com")
-                                .userPassword("123456")
-                                .build()))).andExpect(status().isCreated());
-    }*/
+       given(userRepository.findByUserName(any())).willReturn(Optional.empty());
+        given(userRepository.findByEmail(any())).willReturn(Optional.empty());
+       given(userRepository.save(UserMapper.mapToEntity(userModelExample))).willReturn(userEntityExample);
+       this.mockMvc.perform(post("/v1/crud/user")
+               .contentType(MediaType.APPLICATION_JSON)
+               .content(new ObjectMapper()
+                       .writeValueAsString(UserEntity.builder().id("someid").userName("teste").email("test@hotmail.com").userPassword("123456").build()))).andExpect(status().isOk());
+   }*/
 
     @Test
     public void deleteFindById_ReturnCode_Ok() throws Exception {
