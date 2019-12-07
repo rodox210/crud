@@ -3,7 +3,6 @@ package com.rodd331.crud.v1.model.request;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

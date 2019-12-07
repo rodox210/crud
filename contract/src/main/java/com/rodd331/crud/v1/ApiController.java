@@ -27,6 +27,7 @@ public class ApiController{
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "User created"),
             @ApiResponse(code = 400, message = "Bad Request",response = ExceptionResponse.class),
+            @ApiResponse(code = 409, message = "Data Conflict",response = ExceptionResponse.class),
             @ApiResponse(code = 500, message = "Internal server error")
     })
     @ResponseStatus(HttpStatus.CREATED)
@@ -63,6 +64,7 @@ public class ApiController{
     @ApiResponses({
             @ApiResponse(code = 200, message = "Updated User"),
             @ApiResponse(code = 404, message = "User not found", response = ExceptionResponse.class),
+            @ApiResponse(code = 409, message = "Data Conflict",response = ExceptionResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     public UserResponse updateUser(@Valid @RequestBody UserRequest user, @PathVariable String id) {

@@ -20,8 +20,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.rodd331.crud.stubs.UserEntityStub.generationUserEntity;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -66,19 +68,19 @@ public class ApiControllerTest {
         this.mockMvc.perform(get("/v1/crud/user")).andExpect(status().isOk());
     }
 
-  /* @Test
+   @Test
     public void createUser_ReturnCode_Created() throws Exception {
        UserModel userModelExample = new UserModel("someid", "teste", "test@hotmail.com", "123456");
        UserEntity userEntityExample = new UserEntity("someid", "teste", "test@hotmail.com", "123456");
 
        given(userRepository.findByUserName(any())).willReturn(Optional.empty());
         given(userRepository.findByEmail(any())).willReturn(Optional.empty());
-       given(userRepository.save(UserMapper.mapToEntity(userModelExample))).willReturn(userEntityExample);
+       given(userRepository.save(any())).willReturn(userEntityExample);
        this.mockMvc.perform(post("/v1/crud/user")
                .contentType(MediaType.APPLICATION_JSON)
                .content(new ObjectMapper()
-                       .writeValueAsString(UserEntity.builder().id("someid").userName("teste").email("test@hotmail.com").userPassword("123456").build()))).andExpect(status().isOk());
-   }*/
+                       .writeValueAsString(UserEntity.builder().id("someid").userName("teste").email("test@hotmail.com").userPassword("123456").build()))).andExpect(status().isCreated());
+   }
 
     @Test
     public void deleteFindById_ReturnCode_Ok() throws Exception {

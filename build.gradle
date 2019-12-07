@@ -21,8 +21,7 @@ plugins {
     id 'java'
     id "application"
 }
-group = 'com.rodd331'
-version = '0.0.1-SNAPSHOT'
+
 mainClassName = 'com.rodd331.crud.CrudApplication'
 dependencies {
     implementation project(':contract')
@@ -73,11 +72,14 @@ allprojects {
 }
 test {
     useJUnitPlatform()
+
 }
 
 sonarqube {
     properties {
         property "sonar.sourceEncoding", "UTF-8"
         property "sonar.projectKey", "crud"
+
     }
 }
+

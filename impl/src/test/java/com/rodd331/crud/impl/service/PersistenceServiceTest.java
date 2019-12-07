@@ -4,7 +4,6 @@ import com.rodd331.crud.impl.model.UserModel;
 import com.rodd331.crud.impl.repository.UserEntity;
 import com.rodd331.crud.impl.repository.UserRepository;
 import com.rodd331.crud.stubs.UserEntityStub;
-import com.rodd331.crud.stubs.UserModelStub;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,8 +16,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.rodd331.crud.stubs.UserEntityStub.generationUserEntity;
+import static com.rodd331.crud.stubs.UserEntityStub.generationUserEntity2;
 import static com.rodd331.crud.stubs.UserModelStub.generationUserModel;
-import static com.rodd331.crud.stubs.UserModelStub.generationUserModel2;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -35,9 +34,9 @@ public class PersistenceServiceTest {
     @Test
     public void createUser() {
         when(userRepository.save(any())).thenReturn(UserEntityStub.generationUserEntity());
-        persistenceService.createUser(generationUserModel());
+        persistenceService.createUser(generationUserEntity());
         assertEquals(generationUserEntity(),
-                persistenceService.createUser(generationUserModel()));
+                persistenceService.createUser(generationUserEntity()));
     }
 
     @Test
@@ -64,15 +63,15 @@ public class PersistenceServiceTest {
     @Test
     public void deleteUserById() {
     persistenceService.deleteUserById("someid");
-    Assert.assertTrue(persistenceService.deleteUserById("someid"));
+    verify(userRepository).deleteById("someid");
     }
 
     @Test
     public void userUpdate() {
-        UserModel teste = generationUserModel2();
+        UserEntity teste = generationUserEntity2();
         when(userRepository.save(any())).thenReturn(UserEntityStub.generationUserEntity());
-        persistenceService.userUpdate(teste,"someid");
+        persistenceService.userUpdate(teste);
         assertEquals(generationUserEntity(),
-                persistenceService.userUpdate(teste,"someid"));
+                persistenceService.userUpdate(teste));
     }
 }

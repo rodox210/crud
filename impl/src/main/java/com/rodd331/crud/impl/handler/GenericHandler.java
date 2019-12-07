@@ -34,14 +34,14 @@ public class GenericHandler {
                 HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(BadRequestException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ConflictException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
     @ResponseBody
-    public ExceptionResponse handlerBadRequestException(BadRequestException exception) {
-        return new ExceptionResponse("BAD_REQUEST",
+    public ExceptionResponse handlerConflictException(ConflictException exception) {
+        return new ExceptionResponse("CONFLICT",
                 exception.getMessage(),
                 LocalDateTime.now(),
-                HttpStatus.BAD_REQUEST);
+                HttpStatus.CONFLICT);
     }
 
 
