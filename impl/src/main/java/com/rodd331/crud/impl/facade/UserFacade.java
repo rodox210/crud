@@ -4,11 +4,8 @@ import com.rodd331.crud.impl.model.UserModel;
 import com.rodd331.crud.impl.service.PersistenceService;
 import com.rodd331.crud.impl.service.ValidationService;
 import lombok.AllArgsConstructor;
-import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 import static com.rodd331.crud.impl.mapper.UserMapper.mapToEntity;

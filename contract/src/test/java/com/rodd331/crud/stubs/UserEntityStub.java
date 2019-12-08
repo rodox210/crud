@@ -15,9 +15,9 @@ public class UserEntityStub {
 
     public static UserEntity generationUserEntity2() {
         return UserEntity.builder()
-                .id("genericId2")
-                .userName("Chapolin")
-                .email("chapolin@live.com")
+                .id("someid")
+                .userName("teste")
+                .email("teste@live.com")
                 .userPassword("123456")
                 .build();
     }

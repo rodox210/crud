@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.rodd331.crud.stubs.UserEntityStub.generationUserEntity;
+import static com.rodd331.crud.stubs.UserEntityStub.generationUserEntity2;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -55,7 +56,7 @@ public class ApiControllerTest {
 
     @Test
     public void findById_ReturnCode_OK() throws Exception {
-        given(userRepository.findById("someid")).willReturn(java.util.Optional.of(generationUserEntity()));
+        given(userRepository.findById("someid")).willReturn(java.util.Optional.of(generationUserEntity2()));
         this.mockMvc.perform(get("/v1/crud/user/someid"))
                 .andExpect(status().isOk());
     }
