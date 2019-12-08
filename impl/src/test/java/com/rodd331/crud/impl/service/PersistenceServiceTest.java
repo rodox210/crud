@@ -1,10 +1,8 @@
 package com.rodd331.crud.impl.service;
 
-import com.rodd331.crud.impl.model.UserModel;
 import com.rodd331.crud.impl.repository.UserEntity;
 import com.rodd331.crud.impl.repository.UserRepository;
 import com.rodd331.crud.stubs.UserEntityStub;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -17,8 +15,6 @@ import java.util.Optional;
 
 import static com.rodd331.crud.stubs.UserEntityStub.generationUserEntity;
 import static com.rodd331.crud.stubs.UserEntityStub.generationUserEntity2;
-import static com.rodd331.crud.stubs.UserModelStub.generationUserModel;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 

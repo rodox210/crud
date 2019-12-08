@@ -41,7 +41,6 @@ public class ValidationServiceTest {
 
     @Test
     public void checkForResgistredExistenceInDataBaseName() {
-        expectedException.expect(ConflictException.class);
         expectedException.expectMessage("Name already registered");
         when(userRepository.findByUserName(any())).thenReturn(Optional.of(generationUserEntity()));
         validationService.checkForResgistredExistenceInDataBaseName(generationUserModel());
@@ -51,11 +50,11 @@ public class ValidationServiceTest {
     public void checkForResgistredExistenceInDataBaseName_2() {
         when(userRepository.findByUserName(any())).thenReturn(Optional.empty());
         validationService.checkForResgistredExistenceInDataBaseName(generationUserModel());
+        verify(userRepository).findByUserName(any());
     }
 
     @Test
     public void checkForResgistredExistenceInDataBaseEmail() {
-        expectedException.expect(ConflictException.class);
         expectedException.expectMessage("Email already registered");
         when(userRepository.findByEmail(any())).thenReturn(Optional.of(generationUserEntity()));
         validationService.checkForResgistredExistenceInDataBaseEmail(generationUserModel());
@@ -65,11 +64,11 @@ public class ValidationServiceTest {
     public void checkForResgistredExistenceInDataBaseEmail_2() {
         when(userRepository.findByEmail(any())).thenReturn(Optional.empty());
         validationService.checkForResgistredExistenceInDataBaseEmail(generationUserModel());
+        verify(userRepository).findByEmail(any());
     }
 
     @Test
     public void validationEmptyList() {
-        expectedException.expect(NotFoundException.class);
         expectedException.expectMessage("There are no registered users");
         when(userRepository.findAll()).thenReturn(Collections.emptyList());
         validationService.validationEmptyList();
@@ -86,7 +85,6 @@ public class ValidationServiceTest {
 
     @Test
     public void validatorUserId() {
-        expectedException.expect(NotFoundException.class);
         expectedException.expectMessage("User not found");
         when(userRepository.findById(any())).thenReturn(Optional.empty());
         validationService.validatorUserId("someid");
