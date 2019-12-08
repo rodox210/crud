@@ -45,10 +45,9 @@ public class UserFacadeTest {
     @Test
     public void createUser() {
         UserModel teste = generationUserModel();
-        when(persistenceService.createUser(any())).thenReturn(generationUserEntity());
+        when(persistenceService.createUser(generationUserEntity())).thenReturn(generationUserEntity());
         userFacade.createUser(teste);
-        Assert.assertEquals(generationUserModel(), userFacade.createUser(generationUserModel()));
-
+        verify(persistenceService).createUser(generationUserEntity());
     }
 
     @Test
@@ -57,14 +56,14 @@ public class UserFacadeTest {
         teste.add(generationUserModel());
         when(persistenceService.listAllUsersReturn()).thenReturn(teste);
         userFacade.allUsers();
-        Assert.assertEquals(teste, userFacade.allUsers());
+        verify(persistenceService).listAllUsersReturn();
     }
 
     @Test
     public void findById() {
-        when(persistenceService.userFindById(any())).thenReturn(generationUserEntity());
+        when(persistenceService.userFindById("someid")).thenReturn(generationUserEntity());
         userFacade.findById("someid");
-        Assert.assertEquals(generationUserModel(), userFacade.findById("someid"));
+        verify(persistenceService).userFindById("someid");
     }
 
     @Test
@@ -72,8 +71,7 @@ public class UserFacadeTest {
         UserModel teste = generationUserModel();
         when(persistenceService.userUpdate(any())).thenReturn(generationUserEntity());
         userFacade.userUpdate(teste, "bobesponja");
-        Assert.assertEquals("bobesponja", teste.getId());
-
+        verify(persistenceService).userUpdate(any());
     }
 
     @Test

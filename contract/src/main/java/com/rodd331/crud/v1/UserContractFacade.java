@@ -21,7 +21,6 @@ public class UserContractFacade {
     UserResponse createUser(UserRequest user) {
         return UserContractMapper.mapToContract(userFacade.createUser(UserContractMapper.mapToImpl(user)));
     }
-
     UserListResponse allUsers() {
         return UserListMapper.mapUserListToResponse(userFacade.allUsers());
     }

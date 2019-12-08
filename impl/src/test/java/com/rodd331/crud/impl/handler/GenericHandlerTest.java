@@ -8,6 +8,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GenericHandlerTest {
@@ -21,10 +22,7 @@ public class GenericHandlerTest {
     @Test
     public void handlBadRequestException() {
         ExceptionResponse teste = genericHandler.handlBadRequestException();
-        Assert.assertEquals(HttpStatus.BAD_REQUEST, teste.getHttpStatus());
-        Assert.assertEquals("BAD_REQUEST", teste.getName());
         Assert.assertEquals("Campo invalido", teste.getMessage());
-
     }
 
     @Test
@@ -32,7 +30,6 @@ public class GenericHandlerTest {
         NotFoundException exception = new NotFoundException("Chapolin");
         ExceptionResponse teste = genericHandler.handlerNotFoundException(exception);
         Assert.assertEquals("NOT_FOUND", teste.getName());
-        Assert.assertEquals(HttpStatus.NOT_FOUND, teste.getHttpStatus());
     }
 
     @Test
@@ -40,6 +37,6 @@ public class GenericHandlerTest {
         ConflictException exception = new ConflictException("Chapolin");
         ExceptionResponse teste = genericHandler.handlerConflictException(exception);
         Assert.assertEquals("CONFLICT", teste.getName());
-        Assert.assertEquals(HttpStatus.CONFLICT, teste.getHttpStatus());
+
     }
 }

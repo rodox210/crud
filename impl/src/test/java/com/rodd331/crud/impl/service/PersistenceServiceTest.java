@@ -35,29 +35,24 @@ public class PersistenceServiceTest {
     public void createUser() {
         when(userRepository.save(any())).thenReturn(UserEntityStub.generationUserEntity());
         persistenceService.createUser(generationUserEntity());
-        assertEquals(generationUserEntity(),
-                persistenceService.createUser(generationUserEntity()));
+        verify(userRepository).save(generationUserEntity());
     }
 
     @Test
     public void listAllUsersReturn() {
         List<UserEntity> teste = new ArrayList<>();
         teste.add(generationUserEntity());
-        List<UserModel> teste1 = new ArrayList<>();
-        teste1.add(generationUserModel());
 
         when(userRepository.findAll()).thenReturn(teste);
         persistenceService.listAllUsersReturn();
-        assertEquals(teste1, persistenceService.listAllUsersReturn());
-
+        verify(userRepository).findAll();
     }
 
     @Test
     public void userFindById() {
         when(userRepository.findById(any())).thenReturn(Optional.of(UserEntityStub.generationUserEntity()));
         persistenceService.userFindById("someid");
-        assertEquals(generationUserEntity(),
-                persistenceService.userFindById("someid"));
+        verify(userRepository).findById("someid");
     }
 
     @Test
@@ -71,7 +66,6 @@ public class PersistenceServiceTest {
         UserEntity teste = generationUserEntity2();
         when(userRepository.save(any())).thenReturn(UserEntityStub.generationUserEntity());
         persistenceService.userUpdate(teste);
-        assertEquals(generationUserEntity(),
-                persistenceService.userUpdate(teste));
+        verify(userRepository).save(teste);
     }
 }
