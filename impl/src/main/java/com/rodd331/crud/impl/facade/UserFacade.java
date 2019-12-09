@@ -6,6 +6,7 @@ import com.rodd331.crud.impl.service.ValidationService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+
 import java.util.List;
 
 import static com.rodd331.crud.impl.mapper.UserMapper.mapToEntity;
@@ -21,7 +22,6 @@ public class UserFacade {
     public UserModel createUser(UserModel user) {
 
         validationService.checkForResgistredExistenceInDataBaseName(user);
-
         validationService.checkForResgistredExistenceInDataBaseEmail(user);
         return mapToModel(persistenceService.createUser(mapToEntity(user)));
     }

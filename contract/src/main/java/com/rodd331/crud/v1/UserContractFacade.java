@@ -9,6 +9,7 @@ import com.rodd331.crud.v1.model.response.UserResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
 
 
 @Component
@@ -19,10 +20,10 @@ public class UserContractFacade {
 
 
     UserResponse createUser(UserRequest user) {
-        return UserContractMapper.mapToContract(userFacade.createUser(UserContractMapper.mapToImpl(user)));
+        return Objects.requireNonNull(UserContractMapper.mapToContract(userFacade.createUser(UserContractMapper.mapToImpl(user))));
     }
     UserListResponse allUsers() {
-        return UserListMapper.mapUserListToResponse(userFacade.allUsers());
+        return Objects.requireNonNull(UserListMapper.mapUserListToResponse(userFacade.allUsers()));
     }
 
     UserResponse findById(String id) {
@@ -30,7 +31,7 @@ public class UserContractFacade {
     }
 
     UserResponse userUpdate(UserRequest user, String id) {
-        return UserContractMapper.mapToContract(userFacade.userUpdate(UserContractMapper.mapToImpl(user), id));
+        return Objects.requireNonNull(UserContractMapper.mapToContract(userFacade.userUpdate(UserContractMapper.mapToImpl(user), id)));
     }
 
     void deleteById(String id) {

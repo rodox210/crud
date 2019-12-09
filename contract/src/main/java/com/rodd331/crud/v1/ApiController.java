@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Objects;
 
 
 @Api(value = "Api Controller")
@@ -32,7 +33,7 @@ public class ApiController{
     })
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse createUser(@Valid @RequestBody UserRequest user) {
-        return userContractFacade.createUser(user);
+        return Objects.requireNonNull(userContractFacade.createUser(user));
     }
 
     @ApiOperation(value = "Retorna todos usuarios.")
@@ -43,7 +44,7 @@ public class ApiController{
     })
     @GetMapping("/user")
     public UserListResponse allUsers() {
-        return userContractFacade.allUsers();
+        return Objects.requireNonNull(userContractFacade.allUsers());
     }
 
 
@@ -55,7 +56,8 @@ public class ApiController{
     })
     @GetMapping("/user/{id}")
     public UserResponse findById(@PathVariable String id) {
-        return userContractFacade.findById(id);
+
+        return Objects.requireNonNull(userContractFacade.findById(id));
     }
 
 
@@ -68,7 +70,7 @@ public class ApiController{
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     public UserResponse updateUser(@Valid @RequestBody UserRequest user, @PathVariable String id) {
-        return userContractFacade.userUpdate(user, id);
+        return Objects.requireNonNull(userContractFacade.userUpdate(user, id));
     }
 
     @ApiOperation(value = "Deleta um usuario.")

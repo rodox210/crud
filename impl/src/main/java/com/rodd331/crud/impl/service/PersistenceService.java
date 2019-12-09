@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -28,7 +29,7 @@ public class PersistenceService {
     }
 
     public UserEntity userFindById(String id) {
-        return userRepository.findById(id)
+        return Objects.requireNonNull(userRepository.findById(id))
                 .orElseThrow(() -> new NotFoundException("User not found"));
     }
 

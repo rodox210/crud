@@ -10,6 +10,7 @@ import com.rodd331.crud.impl.service.PersistenceService;
 import com.rodd331.crud.impl.service.ValidationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -41,14 +42,10 @@ public class ApiControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    @Autowired
-    private PersistenceService persistenceService;
-    @Autowired
-    private ValidationService validationService;
-    @Autowired
-    private UserContractFacade userContractFacade;
-    @Autowired
-    private UserFacade userFacade;
+
+    @InjectMocks
+    private ApiController apiController;
+
 
     @MockBean
     private UserRepository userRepository;
@@ -69,9 +66,9 @@ public class ApiControllerTest {
         this.mockMvc.perform(get("/v1/crud/user")).andExpect(status().isOk());
     }
 
+
    @Test
     public void createUser_ReturnCode_Created() throws Exception {
-       UserModel userModelExample = new UserModel("someid", "teste", "test@hotmail.com", "123456");
        UserEntity userEntityExample = new UserEntity("someid", "teste", "test@hotmail.com", "123456");
 
        given(userRepository.findByUserName(any())).willReturn(Optional.empty());
@@ -80,7 +77,9 @@ public class ApiControllerTest {
        this.mockMvc.perform(post("/v1/crud/user")
                .contentType(MediaType.APPLICATION_JSON)
                .content(new ObjectMapper()
-                       .writeValueAsString(UserEntity.builder().id("someid").userName("teste").email("test@hotmail.com").userPassword("123456").build()))).andExpect(status().isCreated());
+                       .writeValueAsString(UserEntity.builder().id("someid").userName("teste")
+                               .email("test@hotmail.com").userPassword("123456").build())))
+               .andExpect(status().isCreated());
    }
 
     @Test

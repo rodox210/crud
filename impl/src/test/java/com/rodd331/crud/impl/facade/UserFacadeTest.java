@@ -48,6 +48,8 @@ public class UserFacadeTest {
         when(persistenceService.createUser(generationUserEntity())).thenReturn(generationUserEntity());
         userFacade.createUser(teste);
         verify(persistenceService).createUser(generationUserEntity());
+        verify(validationService).checkForResgistredExistenceInDataBaseName(generationUserModel());
+        verify(validationService).checkForResgistredExistenceInDataBaseEmail(generationUserModel());
     }
 
     @Test
@@ -57,6 +59,7 @@ public class UserFacadeTest {
         when(persistenceService.listAllUsersReturn()).thenReturn(teste);
         userFacade.allUsers();
         verify(persistenceService).listAllUsersReturn();
+        verify(validationService).validationEmptyList();
     }
 
     @Test
@@ -72,6 +75,7 @@ public class UserFacadeTest {
         when(persistenceService.userUpdate(any())).thenReturn(generationUserEntity());
         userFacade.userUpdate(teste, "bobesponja");
         verify(persistenceService).userUpdate(any());
+        verify(validationService).validatorUserId("bobesponja");
     }
 
     @Test

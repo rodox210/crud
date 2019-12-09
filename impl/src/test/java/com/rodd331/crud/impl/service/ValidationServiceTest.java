@@ -1,11 +1,6 @@
 package com.rodd331.crud.impl.service;
 
-import com.rodd331.crud.impl.handler.ConflictException;
-import com.rodd331.crud.impl.handler.NotFoundException;
 import com.rodd331.crud.impl.repository.UserRepository;
-import com.rodd331.crud.stubs.UserEntityStub;
-import com.rodd331.crud.stubs.UserModelStub;
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
