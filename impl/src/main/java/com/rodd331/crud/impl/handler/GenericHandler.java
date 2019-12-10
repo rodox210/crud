@@ -2,20 +2,16 @@ package com.rodd331.crud.impl.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GenericHandler {
 
-
+//Todo melhorar o retorno especificando os problemas que ocorreram de validação
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ResponseBody
     public ExceptionResponse handlBadRequestException() {
         return new ExceptionResponse("BAD_REQUEST",
                 "Campo invalido",
@@ -24,9 +20,11 @@ public class GenericHandler {
     }
 
 
+    //Todo tratamento de exception generica(incluindo null pointer)
+
+
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ResponseBody
     public ExceptionResponse handlerNotFoundException(NotFoundException exception) {
         return new ExceptionResponse("NOT_FOUND",
                 exception.getMessage(),
@@ -34,9 +32,9 @@ public class GenericHandler {
                 HttpStatus.NOT_FOUND);
     }
 
+    //Todo ler documentação de todos os status
     @ExceptionHandler(ConflictException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    @ResponseBody
     public ExceptionResponse handlerConflictException(ConflictException exception) {
         return new ExceptionResponse("CONFLICT",
                 exception.getMessage(),

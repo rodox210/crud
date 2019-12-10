@@ -4,7 +4,6 @@ import com.rodd331.crud.impl.model.UserModel;
 import com.rodd331.crud.impl.repository.UserRepository;
 import com.rodd331.crud.impl.service.PersistenceService;
 import com.rodd331.crud.impl.service.ValidationService;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

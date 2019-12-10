@@ -9,27 +9,27 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
-
 
 @Service
 @AllArgsConstructor
 public class PersistenceService {
 
     private UserRepository userRepository;
-
+// Todo reformular nomes dos metodos e centralizar o acesso ao banco
 
     public UserEntity createUser(UserEntity user) {
         return userRepository.save(user);
     }
 
     public List<UserModel> listAllUsersReturn() {
-        return userRepository.findAll().stream().map(UserMapper::mapToModel).collect(Collectors.toList());
+        return userRepository.findAll().stream()
+                .map(UserMapper::mapToModel)
+                .collect(Collectors.toList());
     }
 
     public UserEntity userFindById(String id) {
-        return Objects.requireNonNull(userRepository.findById(id))
+        return userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User not found"));
     }
 
@@ -38,7 +38,6 @@ public class PersistenceService {
     }
 
     public UserEntity userUpdate(UserEntity user) {
-
         return userRepository.save(user);
     }
 

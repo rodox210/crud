@@ -7,7 +7,6 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-
 public class UserContractMapper {
 
     public static UserResponse mapToContract(UserModel userModel) {

@@ -4,7 +4,9 @@ import com.rodd331.crud.impl.handler.ExceptionResponse;
 import com.rodd331.crud.v1.model.request.UserRequest;
 import com.rodd331.crud.v1.model.response.UserListResponse;
 import com.rodd331.crud.v1.model.response.UserResponse;
-import io.swagger.annotations.*;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,24 +14,22 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Objects;
 
-
-@Api(value = "Api Controller")
-@RequestMapping(path = "/v1/crud")
+@RequestMapping(path = "/crud/v1")
 @RestController
 @AllArgsConstructor
-public class ApiController{
+public class ApiController {
 
     private UserContractFacade userContractFacade;
 
-
-
+    //Todo remover todos object null point
+    //Todo docker compose completogi
     @ApiOperation(value = "Cria um usuario")
     @PostMapping("/user")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "User created"),
-            @ApiResponse(code = 400, message = "Bad Request",response = ExceptionResponse.class),
-            @ApiResponse(code = 409, message = "Data Conflict",response = ExceptionResponse.class),
-            @ApiResponse(code = 500, message = "Internal server error")
+            @ApiResponse(code = 400, message = "Bad Request", response = ExceptionResponse.class),
+            @ApiResponse(code = 409, message = "Data Conflict", response = ExceptionResponse.class),
+            @ApiResponse(code = 500, message = "Internal server error",response = ExceptionResponse.class)
     })
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse createUser(@Valid @RequestBody UserRequest user) {
@@ -47,30 +47,27 @@ public class ApiController{
         return Objects.requireNonNull(userContractFacade.allUsers());
     }
 
-
     @ApiOperation(value = "Consulta usuario por id.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "User found"),
-            @ApiResponse(code = 404, message = "User not found",response = ExceptionResponse.class),
+            @ApiResponse(code = 404, message = "User not found", response = ExceptionResponse.class),
             @ApiResponse(code = 500, message = "Internal server error")
     })
     @GetMapping("/user/{id}")
     public UserResponse findById(@PathVariable String id) {
-
         return Objects.requireNonNull(userContractFacade.findById(id));
     }
-
 
     @ApiOperation(value = "Atualiza usuario existente.")
     @PutMapping("/user/{id}")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Updated User"),
             @ApiResponse(code = 404, message = "User not found", response = ExceptionResponse.class),
-            @ApiResponse(code = 409, message = "Data Conflict",response = ExceptionResponse.class),
+            @ApiResponse(code = 409, message = "Data Conflict", response = ExceptionResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
-    public UserResponse updateUser(@Valid @RequestBody UserRequest user, @PathVariable String id) {
-        return Objects.requireNonNull(userContractFacade.userUpdate(user, id));
+    public @Valid UserResponse updateUser(@Valid @RequestBody UserRequest user, @PathVariable String id) {
+        return userContractFacade.userUpdate(user, id);
     }
 
     @ApiOperation(value = "Deleta um usuario.")

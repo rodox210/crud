@@ -8,11 +8,3 @@ services:
       - "./files/mongo:/data/database"
     ports:
       - "27017:27017"
-
-  mongo_express:
-    image: mongo-express
-    container_name: mongoexpress
-    ports:
-      - "8081:8081"
-    depends_on:
-      - mongo_database

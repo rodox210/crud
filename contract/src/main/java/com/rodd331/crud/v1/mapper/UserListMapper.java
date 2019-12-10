@@ -6,7 +6,6 @@ import com.rodd331.crud.v1.model.response.UserResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -16,7 +15,7 @@ import java.util.stream.Collectors;
 public class UserListMapper {
 
     public static UserListResponse mapUserListToResponse(List<UserModel> userList) {
-        @NotNull List<UserResponse>  collect = userList.stream().map(userModel -> UserResponse.builder()
+        List<UserResponse>  collect = userList.stream().map(userModel -> UserResponse.builder()
                 .id(userModel.getId())
                 .userName(userModel.getUserName())
                 .email(userModel.getEmail())

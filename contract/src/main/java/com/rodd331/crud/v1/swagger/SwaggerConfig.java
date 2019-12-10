@@ -28,7 +28,6 @@ public class SwaggerConfig {
     }
 
 
-
     private ApiInfo metadata() {
         return new ApiInfoBuilder()
                 .title("Crud")
@@ -37,7 +36,4 @@ public class SwaggerConfig {
                 .build();
 
     }
-
-
-
 }

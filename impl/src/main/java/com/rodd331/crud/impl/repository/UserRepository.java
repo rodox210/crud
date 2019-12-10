@@ -6,7 +6,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends MongoRepository<UserEntity, String> {
-
+  //Todo fazer buscar paginadas
     Optional<UserEntity> findById(String id);
     Optional<UserEntity> findByUserName(String userName);
     Optional<UserEntity> findByEmail(String email);

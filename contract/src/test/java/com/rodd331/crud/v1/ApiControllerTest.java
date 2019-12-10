@@ -19,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -67,20 +68,19 @@ public class ApiControllerTest {
     }
 
 
-   @Test
+    @Test
     public void createUser_ReturnCode_Created() throws Exception {
-       UserEntity userEntityExample = new UserEntity("someid", "teste", "test@hotmail.com", "123456");
-
-       given(userRepository.findByUserName(any())).willReturn(Optional.empty());
+        UserEntity userEntityExample = new UserEntity("someid", "teste", "test@hotmail.com", "123456");
+        given(userRepository.findByUserName(any())).willReturn(Optional.empty());
         given(userRepository.findByEmail(any())).willReturn(Optional.empty());
-       given(userRepository.save(any())).willReturn(userEntityExample);
-       this.mockMvc.perform(post("/v1/crud/user")
-               .contentType(MediaType.APPLICATION_JSON)
-               .content(new ObjectMapper()
-                       .writeValueAsString(UserEntity.builder().id("someid").userName("teste")
-                               .email("test@hotmail.com").userPassword("123456").build())))
-               .andExpect(status().isCreated());
-   }
+        given(userRepository.save(any())).willReturn(userEntityExample);
+        this.mockMvc.perform(post("/v1/crud/user")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper()
+                        .writeValueAsString(UserEntity.builder().id("someid").userName("teste")
+                                .email("test@hotmail.com").userPassword("123456").build())))
+                .andExpect(status().isCreated());
+    }
 
     @Test
     public void deleteFindById_ReturnCode_Ok() throws Exception {
@@ -88,6 +88,12 @@ public class ApiControllerTest {
         given(userRepository.findById("someid")).willReturn(java.util.Optional.of(userEntityExample));
         this.mockMvc.perform(delete("/v1/crud/user/someid")).andExpect(status().isNoContent());
     }
+
+    @Test(expected = NullPointerException.class)
+    public void deleteFindById_Return_NullPointer() {
+        apiController.deleteById("someid");
+    }
+
 
     @Test
     public void updateUser_ReturnCode_OK() throws Exception {

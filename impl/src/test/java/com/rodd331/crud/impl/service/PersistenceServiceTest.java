@@ -53,8 +53,8 @@ public class PersistenceServiceTest {
 
     @Test
     public void deleteUserById() {
-    persistenceService.deleteUserById("someid");
-    verify(userRepository).deleteById("someid");
+        persistenceService.deleteUserById("someid");
+        verify(userRepository).deleteById("someid");
     }
 
     @Test
