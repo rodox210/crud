@@ -14,7 +14,6 @@ import javax.validation.constraints.Size;
 @Builder
 public class UserResponse {
 
-
     private String id;
 
     @NotBlank
@@ -28,5 +27,4 @@ public class UserResponse {
     @NotBlank
     @Size(min = 3, max = 20, message = "min 3 max 20 Caracteres")
     private String userPassword;
-
 }

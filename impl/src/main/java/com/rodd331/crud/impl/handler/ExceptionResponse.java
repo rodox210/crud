@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class ExceptionResponse {
 
     private String name;
-    private String message;
+    private Object cause;
     private LocalDateTime timestamp;
     private HttpStatus httpStatus;
 

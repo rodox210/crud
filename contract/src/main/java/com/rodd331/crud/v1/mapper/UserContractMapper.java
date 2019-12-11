@@ -24,6 +24,5 @@ public class UserContractMapper {
                 .email(userRequest.getEmail())
                 .userPassword(userRequest.getUserPassword())
                 .build();
-
     }
 }

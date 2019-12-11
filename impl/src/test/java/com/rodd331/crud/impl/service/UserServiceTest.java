@@ -19,18 +19,18 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PersistenceServiceTest {
+public class UserServiceTest {
 
     @Mock
     UserRepository userRepository;
 
     @InjectMocks
-    PersistenceService persistenceService;
+    UserService userService;
 
     @Test
     public void createUser() {
         when(userRepository.save(any())).thenReturn(UserEntityStub.generationUserEntity());
-        persistenceService.createUser(generationUserEntity());
+        userService.create(generationUserEntity());
         verify(userRepository).save(generationUserEntity());
     }
 
@@ -40,20 +40,20 @@ public class PersistenceServiceTest {
         teste.add(generationUserEntity());
 
         when(userRepository.findAll()).thenReturn(teste);
-        persistenceService.listAllUsersReturn();
+        userService.listAll();
         verify(userRepository).findAll();
     }
 
     @Test
     public void userFindById() {
         when(userRepository.findById(any())).thenReturn(Optional.of(UserEntityStub.generationUserEntity()));
-        persistenceService.userFindById("someid");
+        userService.findById("someid");
         verify(userRepository).findById("someid");
     }
 
     @Test
     public void deleteUserById() {
-        persistenceService.deleteUserById("someid");
+        userService.delete("someid");
         verify(userRepository).deleteById("someid");
     }
 
@@ -61,7 +61,7 @@ public class PersistenceServiceTest {
     public void userUpdate() {
         UserEntity teste = generationUserEntity2();
         when(userRepository.save(any())).thenReturn(UserEntityStub.generationUserEntity());
-        persistenceService.userUpdate(teste);
+        userService.update(teste);
         verify(userRepository).save(teste);
     }
 }

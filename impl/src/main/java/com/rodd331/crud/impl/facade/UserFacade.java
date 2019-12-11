@@ -1,11 +1,9 @@
 package com.rodd331.crud.impl.facade;
 
 import com.rodd331.crud.impl.model.UserModel;
-import com.rodd331.crud.impl.service.PersistenceService;
-import com.rodd331.crud.impl.service.ValidationService;
+import com.rodd331.crud.impl.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-
 
 import java.util.List;
 
@@ -16,36 +14,33 @@ import static com.rodd331.crud.impl.mapper.UserMapper.mapToModel;
 @AllArgsConstructor
 public class UserFacade {
 
-    private PersistenceService persistenceService;
-    private ValidationService validationService;
+    private UserService userService;
 
-    public UserModel createUser(UserModel user) {
 
-        validationService.checkForResgistredExistenceInDataBaseName(user);
-        validationService.checkForResgistredExistenceInDataBaseEmail(user);
-        return mapToModel(persistenceService.createUser(mapToEntity(user)));
+    public UserModel create(UserModel user) {
+
+        userService.checkForResgistredExistenceInDataBaseName(user);
+        userService.checkForResgistredExistenceInDataBaseEmail(user);
+        return mapToModel(userService.create(mapToEntity(user)));
     }
-
 
     public List<UserModel> allUsers() {
-        validationService.validationEmptyList();
-        return persistenceService.listAllUsersReturn();
+        userService.validationEmptyList();
+        return userService.listAll();
     }
-
 
     public UserModel findById(String id) {
-        return mapToModel(persistenceService.userFindById(id));
+        return mapToModel(userService.findById(id));
     }
 
-
-    public UserModel userUpdate(UserModel user, String id) {
-        validationService.validatorUserId(id);
+    public UserModel update(UserModel user, String id) {
+        userService.validatorId(id);
         user.setId(id);
-        return mapToModel(persistenceService.userUpdate(mapToEntity(user)));
+        return mapToModel(userService.update(mapToEntity(user)));
     }
 
-    public void deleteById(String id) {
-        validationService.validatorUserId(id);
-        persistenceService.deleteUserById(id);
+    public void delete(String id) {
+        userService.validatorId(id);
+        userService.delete(id);
     }
 }

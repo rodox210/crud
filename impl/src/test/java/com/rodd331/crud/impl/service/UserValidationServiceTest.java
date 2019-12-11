@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ValidationServiceTest {
+public class UserValidationServiceTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -31,20 +31,20 @@ public class ValidationServiceTest {
     UserRepository userRepository;
 
     @InjectMocks
-    ValidationService validationService;
+    UserValidationService userValidationService;
 
 
     @Test
     public void checkForResgistredExistenceInDataBaseName() {
         expectedException.expectMessage("Name already registered");
         when(userRepository.findByUserName(any())).thenReturn(Optional.of(generationUserEntity()));
-        validationService.checkForResgistredExistenceInDataBaseName(generationUserModel());
+        userValidationService.checkForResgistredExistenceInDataBaseName(generationUserModel());
     }
 
     @Test
     public void checkForResgistredExistenceInDataBaseName_2() {
         when(userRepository.findByUserName(any())).thenReturn(Optional.empty());
-        validationService.checkForResgistredExistenceInDataBaseName(generationUserModel());
+        userValidationService.checkForResgistredExistenceInDataBaseName(generationUserModel());
         verify(userRepository).findByUserName(any());
     }
 
@@ -52,13 +52,13 @@ public class ValidationServiceTest {
     public void checkForResgistredExistenceInDataBaseEmail() {
         expectedException.expectMessage("Email already registered");
         when(userRepository.findByEmail(any())).thenReturn(Optional.of(generationUserEntity()));
-        validationService.checkForResgistredExistenceInDataBaseEmail(generationUserModel());
+        userValidationService.checkForResgistredExistenceInDataBaseEmail(generationUserModel());
     }
 
     @Test
     public void checkForResgistredExistenceInDataBaseEmail_2() {
         when(userRepository.findByEmail(any())).thenReturn(Optional.empty());
-        validationService.checkForResgistredExistenceInDataBaseEmail(generationUserModel());
+        userValidationService.checkForResgistredExistenceInDataBaseEmail(generationUserModel());
         verify(userRepository).findByEmail(any());
     }
 
@@ -66,7 +66,7 @@ public class ValidationServiceTest {
     public void validationEmptyList() {
         expectedException.expectMessage("There are no registered users");
         when(userRepository.findAll()).thenReturn(Collections.emptyList());
-        validationService.validationEmptyList();
+        userValidationService.validationEmptyList();
     }
 
     @Test
@@ -74,7 +74,7 @@ public class ValidationServiceTest {
         List teste = new ArrayList();
         teste.add(generationUserEntity());
         when(userRepository.findAll()).thenReturn(teste);
-        validationService.validationEmptyList();
+        userValidationService.validationEmptyList();
         verify(userRepository).findAll();
     }
 
@@ -82,13 +82,13 @@ public class ValidationServiceTest {
     public void validatorUserId() {
         expectedException.expectMessage("User not found");
         when(userRepository.findById(any())).thenReturn(Optional.empty());
-        validationService.validatorUserId("someid");
+        userValidationService.validatorId("someid");
     }
 
     @Test
     public void validatorUserId_2() {
         when(userRepository.findById(any())).thenReturn(Optional.of(generationUserEntity()));
-        validationService.validatorUserId("someid");
+        userValidationService.validatorId("someid");
         verify(userRepository).findById("someid");
     }
 }

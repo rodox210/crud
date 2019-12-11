@@ -13,7 +13,6 @@ import javax.validation.constraints.Size;
 @lombok.Data
 public class UserRequest {
 
-
     @NotBlank
     @Size(min = 4, max = 20, message = "min 4 max 20 Caracteres")
     private String userName;
@@ -25,5 +24,4 @@ public class UserRequest {
     @NotBlank
     @Size(min = 3, max = 20, message = "min 3 max 20 Caracteres")
     private String userPassword;
-
 }

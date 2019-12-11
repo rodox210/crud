@@ -38,8 +38,8 @@ public class UserContractFacadeTest {
 
     @Test
     public void deleteById() {
-        userContractFacade.deleteById("someid");
-        verify(userFacade).deleteById("someid");
+        userContractFacade.delete("someid");
+        verify(userFacade).delete("someid");
 
     }
 }

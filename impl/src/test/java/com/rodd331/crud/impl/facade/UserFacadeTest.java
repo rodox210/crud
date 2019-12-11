@@ -2,8 +2,7 @@ package com.rodd331.crud.impl.facade;
 
 import com.rodd331.crud.impl.model.UserModel;
 import com.rodd331.crud.impl.repository.UserRepository;
-import com.rodd331.crud.impl.service.PersistenceService;
-import com.rodd331.crud.impl.service.ValidationService;
+import com.rodd331.crud.impl.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -25,63 +24,63 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(classes = {
         UserFacade.class,
-        ValidationService.class,
-        PersistenceService.class})
+        UserValidationService.class,
+        UserService.class})
 public class UserFacadeTest {
 
     @Mock
     UserRepository userRepository;
 
     @Mock
-    PersistenceService persistenceService;
+    UserService userService;
 
     @InjectMocks
     UserFacade userFacade;
 
     @Mock
-    ValidationService validationService;
+    UserValidationService userValidationService;
 
     @Test
     public void createUser() {
         UserModel teste = generationUserModel();
-        when(persistenceService.createUser(generationUserEntity())).thenReturn(generationUserEntity());
-        userFacade.createUser(teste);
-        verify(persistenceService).createUser(generationUserEntity());
-        verify(validationService).checkForResgistredExistenceInDataBaseName(generationUserModel());
-        verify(validationService).checkForResgistredExistenceInDataBaseEmail(generationUserModel());
+        when(userService.create(generationUserEntity())).thenReturn(generationUserEntity());
+        userFacade.create(teste);
+        verify(userService).create(generationUserEntity());
+        verify(userValidationService).checkForResgistredExistenceInDataBaseName(generationUserModel());
+        verify(userValidationService).checkForResgistredExistenceInDataBaseEmail(generationUserModel());
     }
 
     @Test
     public void allUsers() {
         List<UserModel> teste = new ArrayList<UserModel>();
         teste.add(generationUserModel());
-        when(persistenceService.listAllUsersReturn()).thenReturn(teste);
+        when(userService.listAll()).thenReturn(teste);
         userFacade.allUsers();
-        verify(persistenceService).listAllUsersReturn();
-        verify(validationService).validationEmptyList();
+        verify(userService).listAll();
+        verify(userValidationService).validationEmptyList();
     }
 
     @Test
     public void findById() {
-        when(persistenceService.userFindById("someid")).thenReturn(generationUserEntity());
+        when(userService.findById("someid")).thenReturn(generationUserEntity());
         userFacade.findById("someid");
-        verify(persistenceService).userFindById("someid");
+        verify(userService).findById("someid");
     }
 
     @Test
     public void userUpdate() {
         UserModel teste = generationUserModel();
-        when(persistenceService.userUpdate(any())).thenReturn(generationUserEntity());
-        userFacade.userUpdate(teste, "bobesponja");
-        verify(persistenceService).userUpdate(any());
-        verify(validationService).validatorUserId("bobesponja");
+        when(userService.update(any())).thenReturn(generationUserEntity());
+        userFacade.update(teste, "bobesponja");
+        verify(userService).update(any());
+        verify(userValidationService).validatorId("bobesponja");
     }
 
     @Test
     public void deleteById() {
 
-        userFacade.deleteById("someid");
-        verify(validationService).validatorUserId("someid");
-        verify(persistenceService).deleteUserById("someid");
+        userFacade.delete("someid");
+        verify(userValidationService).validatorId("someid");
+        verify(userService).delete("someid");
     }
 }

@@ -6,8 +6,7 @@ import com.rodd331.crud.impl.mapper.UserMapper;
 import com.rodd331.crud.impl.model.UserModel;
 import com.rodd331.crud.impl.repository.UserEntity;
 import com.rodd331.crud.impl.repository.UserRepository;
-import com.rodd331.crud.impl.service.PersistenceService;
-import com.rodd331.crud.impl.service.ValidationService;
+import com.rodd331.crud.impl.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -36,8 +35,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = {ApiController.class,
         UserContractFacade.class,
         UserFacade.class,
-        ValidationService.class,
-        PersistenceService.class})
+        UserValidationService.class,
+        UserService.class})
 @AutoConfigureMockMvc
 public class ApiControllerTest {
 
@@ -91,7 +90,7 @@ public class ApiControllerTest {
 
     @Test(expected = NullPointerException.class)
     public void deleteFindById_Return_NullPointer() {
-        apiController.deleteById("someid");
+        apiController.delete("someid");
     }
 
 

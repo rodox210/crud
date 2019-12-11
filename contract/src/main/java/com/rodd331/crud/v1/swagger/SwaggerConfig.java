@@ -11,7 +11,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-
 @Generated
 @EnableSwagger2
 @Configuration
@@ -24,9 +23,7 @@ public class SwaggerConfig {
                 .build()
                 .useDefaultResponseMessages(false)
                 .apiInfo(metadata());
-
     }
-
 
     private ApiInfo metadata() {
         return new ApiInfoBuilder()
@@ -34,6 +31,5 @@ public class SwaggerConfig {
                 .description("Crud documentation")
                 .version("1.0.0")
                 .build();
-
     }
 }
