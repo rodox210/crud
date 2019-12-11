@@ -4,6 +4,7 @@ import com.rodd331.crud.impl.handler.ExceptionResponse;
 import com.rodd331.crud.v1.model.request.UserRequest;
 import com.rodd331.crud.v1.model.response.UserListResponse;
 import com.rodd331.crud.v1.model.response.UserResponse;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -12,12 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
+@Api(value = "Api Controller", tags =" Api Crud")
 @RequestMapping(path = "/crud/v1")
 @RestController
 @AllArgsConstructor
 public class ApiController {
-
     private UserContractFacade userContractFacade;
 
     //Todo docker compose completogi

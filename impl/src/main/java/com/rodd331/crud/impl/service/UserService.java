@@ -41,18 +41,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void checkForResgistredExistenceInDataBaseName(UserModel user) {
-        if (userRepository.findByUserName(user.getUserName()).isPresent()) {
-            throw new ApiException(HttpStatus.NOT_FOUND, "Name already registered");
-        }
-    }
-
-    public void checkForResgistredExistenceInDataBaseEmail(UserModel user) {
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            throw new ApiException(HttpStatus.NOT_FOUND, "Email already registered");
-        }
-    }
-
     public void validationEmptyList() {
         if (userRepository.findAll().isEmpty()) {
             throw new ApiException(HttpStatus.NOT_FOUND, "There are no registered users");

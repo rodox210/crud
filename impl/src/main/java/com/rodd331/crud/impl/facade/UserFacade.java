@@ -18,9 +18,6 @@ public class UserFacade {
 
 
     public UserModel create(UserModel user) {
-
-        userService.checkForResgistredExistenceInDataBaseName(user);
-        userService.checkForResgistredExistenceInDataBaseEmail(user);
         return mapToModel(userService.create(mapToEntity(user)));
     }
 
