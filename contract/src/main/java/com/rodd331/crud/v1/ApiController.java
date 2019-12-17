@@ -21,7 +21,7 @@ import javax.validation.Valid;
 public class ApiController {
     private UserContractFacade userContractFacade;
 
-    @ApiOperation(value = "Cria um usuario")
+    @ApiOperation(value = "Create new user.")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "User created"),
             @ApiResponse(code = 400, message = "Bad Request", response = ExceptionResponse.class),
@@ -33,29 +33,29 @@ public class ApiController {
         return userContractFacade.create(user);
     }
 
-    @ApiOperation(value = "Retorna todos usuarios.")
+    @ApiOperation(value = "List all users.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Successful Operation"),
             @ApiResponse(code = 404, message = "Not found", response = ExceptionResponse.class),
             @ApiResponse(code = 500, message = "Internal server error", response = ExceptionResponse.class)
     })
     @GetMapping("/user/page/{page}")
-    public UserListResponse allUsers(int page) {
+    public UserListResponse listUsers(@PathVariable int page) {
         return userContractFacade.allUsers(page);
     }
 
-    @ApiOperation(value = "Consulta usuario por id.")
+    @ApiOperation(value = "Search for id.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "User found"),
             @ApiResponse(code = 404, message = "User not found", response = ExceptionResponse.class),
             @ApiResponse(code = 500, message = "Internal server error", response = ExceptionResponse.class)
     })
     @GetMapping("/user/{id}")
-    public UserResponse findById(@PathVariable String id) {
+    public UserResponse searchForId(@PathVariable String id) {
         return userContractFacade.findById(id);
     }
 
-    @ApiOperation(value = "Atualiza usuario existente.")
+    @ApiOperation(value = "Update registered user.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Updated User"),
             @ApiResponse(code = 400, message = "Data already registered", response = ExceptionResponse.class),
@@ -67,7 +67,7 @@ public class ApiController {
         return userContractFacade.update(user, id);
     }
 
-    @ApiOperation(value = "Deleta um usuario.")
+    @ApiOperation(value = "Delete user.")
     @ApiResponses({
             @ApiResponse(code = 204, message = "Deleted User"),
             @ApiResponse(code = 404, message = "User not found", response = ExceptionResponse.class),

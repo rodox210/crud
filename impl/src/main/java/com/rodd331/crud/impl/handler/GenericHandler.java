@@ -31,6 +31,7 @@ public class GenericHandler {
                 .name("InvalidRequestException")
                 .cause(errors)
                 .timestamp(LocalDateTime.now())
+                .httpStatus(HttpStatus.BAD_REQUEST)
                 .build();
     }
 

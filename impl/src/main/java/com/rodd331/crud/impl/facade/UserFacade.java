@@ -15,7 +15,6 @@ public class UserFacade {
 
     private UserService userService;
 
-
     public UserModel create(UserModel user) {
         return mapToModel(userService.create(mapToEntity(user)));
     }

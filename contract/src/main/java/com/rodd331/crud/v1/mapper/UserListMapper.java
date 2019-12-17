@@ -24,8 +24,9 @@ public class UserListMapper {
                 .build()).collect(Collectors.toList());
         return Objects.requireNonNull(UserListResponse.builder()
                 .userResponseList(collect)
-                .size(collect.size())
+                .elementsPerPage(collect.size())
+                .quantPages(page.getTotalPages())
+                .quantTotalElements(page.getTotalElements())
                 .build());
     }
-
 }

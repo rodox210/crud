@@ -17,6 +17,4 @@ public class ExceptionResponse {
     private Object cause;
     private LocalDateTime timestamp;
     private HttpStatus httpStatus;
-
-
 }

@@ -12,6 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 public class UserListResponse {
     private List<UserResponse> userResponseList;
-    private int size;
+    private int elementsPerPage;
+    private int quantPages;
+    private long quantTotalElements;
 }
 
