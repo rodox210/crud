@@ -79,7 +79,6 @@ sonarqube {
     properties {
         property "sonar.sourceEncoding", "UTF-8"
         property "sonar.projectKey", "crud"
-
     }
 }
 

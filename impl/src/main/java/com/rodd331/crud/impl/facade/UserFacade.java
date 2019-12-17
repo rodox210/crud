@@ -3,9 +3,8 @@ package com.rodd331.crud.impl.facade;
 import com.rodd331.crud.impl.model.UserModel;
 import com.rodd331.crud.impl.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 import static com.rodd331.crud.impl.mapper.UserMapper.mapToEntity;
 import static com.rodd331.crud.impl.mapper.UserMapper.mapToModel;
@@ -21,9 +20,9 @@ public class UserFacade {
         return mapToModel(userService.create(mapToEntity(user)));
     }
 
-    public List<UserModel> allUsers() {
+    public Page<UserModel> allUsers(int page) {
         userService.validationEmptyList();
-        return userService.listAll();
+        return userService.listAll(page);
     }
 
     public UserModel findById(String id) {

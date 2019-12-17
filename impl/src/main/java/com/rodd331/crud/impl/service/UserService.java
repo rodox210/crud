@@ -6,11 +6,10 @@ import com.rodd331.crud.impl.model.UserModel;
 import com.rodd331.crud.impl.repository.UserEntity;
 import com.rodd331.crud.impl.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -22,10 +21,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<UserModel> listAll() {
-        return userRepository.findAll().stream()
-                .map(UserMapper::mapToModel)
-                .collect(Collectors.toList());
+    public Page<UserModel> listAll(int page) {
+
+        Page<UserEntity> usersFound = userRepository.findAll(PageRequest.of(page, 5));
+
+        return usersFound.map(UserMapper::mapToModel);
     }
 
     public UserEntity findById(String id) {

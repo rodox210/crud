@@ -20,9 +20,8 @@ public class UserContractFacade {
                 .mapToContract(userFacade.create(UserContractMapper.mapToImpl(user)));
     }
 
-    UserListResponse allUsers() {
-        return UserListMapper
-                .mapUserListToResponse(userFacade.allUsers());
+    UserListResponse allUsers(int page) {
+        return UserListMapper.mapUserListToResponse(userFacade.allUsers(page));
     }
 
     UserResponse findById(String id) {

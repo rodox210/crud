@@ -1,10 +1,23 @@
 version: "2"
 
 services:
-  mongo_database:
-    image: mongo
-    container_name: mongodb
-    volumes:
-      - "./files/mongo:/data/database"
+  apicrud:
+    image: rodrigo
+    container_name: apicrud
     ports:
-      - "27017:27017"
+      - "8080:8080"
+    working_dir: /var/www
+    depends_on:
+      - mongo_database
+
+  mongo_database:
+     image: mongo
+     container_name: mongodb
+     volumes:
+        - "./files/mongo:/data/database"
+     ports:
+        - "27017:27017"
+
+
+
+

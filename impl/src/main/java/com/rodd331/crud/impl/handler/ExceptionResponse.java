@@ -2,10 +2,12 @@ package com.rodd331.crud.impl.handler;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Generated;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
+@Generated
 @AllArgsConstructor
 @lombok.Data
 @Builder
