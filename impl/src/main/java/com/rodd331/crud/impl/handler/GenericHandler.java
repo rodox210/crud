@@ -49,7 +49,7 @@ public class GenericHandler {
     @ExceptionHandler(DuplicateKeyException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionResponse handlerDuplicateKeyException(DuplicateKeyException exception) {
-        return new ExceptionResponse.ExceptionResponseBuilder()
+        return ExceptionResponse.builder()
                 .name("DuplicateKeyException")
                 .cause(exception.getMessage())
                 .timestamp(LocalDateTime.now())
@@ -59,7 +59,7 @@ public class GenericHandler {
 
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<ExceptionResponse> handlerApiExceptionException(ApiException exception) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse.ExceptionResponseBuilder()
+        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
                 .name("ApiException")
                 .cause(exception.getMessage())
                 .httpStatus(exception.getHttpStatus())

@@ -24,7 +24,7 @@ public class UserService {
     public Page<UserModel> listAll(int page) {
 
         Page<UserEntity> usersFound = userRepository.findAll(PageRequest.of(page, 5));
-
+        if (page < 0 || page > usersFound.getSize() / 5) throw new ApiException(HttpStatus.BAD_REQUEST, "Ivalid page");
         return usersFound.map(UserMapper::mapToModel);
     }
 

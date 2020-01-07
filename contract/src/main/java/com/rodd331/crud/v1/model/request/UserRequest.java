@@ -13,15 +13,15 @@ import javax.validation.constraints.Size;
 @lombok.Data
 public class UserRequest {
 
-    @NotBlank
-    @Size(min = 4, max = 20, message = "min 4 max 20 Caracteres")
+    @NotBlank(message = "Field needs to be filled")
+    @Size(min = 4, max = 20, message = "min 4 max 20 characters")
     private String userName;
 
-    @NotBlank
+    @NotBlank(message = "Field needs to be filled")
     @Email(message = "Invalid email")
     private String email;
 
-    @NotBlank
-    @Size(min = 3, max = 20, message = "min 3 max 20 Caracteres")
+    @NotBlank(message = "Field needs to be filled")
+    @Size(min = 3, max = 20, message = "min 3 max 20 characters")
     private String userPassword;
 }
